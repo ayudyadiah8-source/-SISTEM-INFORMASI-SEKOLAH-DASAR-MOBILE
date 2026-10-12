@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Letakkan file ini di: app/src/main/res/menu/bottom_nav_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navBeranda"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/navDaftarUlang"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Daftar Ulang" />
+
+    <item
+        android:id="@+id/navStatus"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="Status" />
+
+    <item
+        android:id="@+id/navProfil"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Profil" />
+
+</menu>

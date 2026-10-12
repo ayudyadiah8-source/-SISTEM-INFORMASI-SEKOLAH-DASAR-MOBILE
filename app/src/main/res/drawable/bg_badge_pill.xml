@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Letakkan di: app/src/main/res/drawable/bg_badge_pill.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/sdn_bg_light" />
+    <corners android:radius="20dp" />
+</shape>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "971930643395",
+    "project_id": "sdn-pojok2-app",
+    "storage_bucket": "sdn-pojok2-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971930643395:android:a37b79db303b6aebf1ab76",
+        "android_client_info": {
+          "package_name": "hapsari.ayudyadiah.sdnpojok2app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjRC0yPPlcePkh1uZdAHGLrJ8K9CMkjtc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

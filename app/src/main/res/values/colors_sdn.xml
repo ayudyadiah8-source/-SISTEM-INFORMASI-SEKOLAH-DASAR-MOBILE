@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Tambahkan baris-baris <color> ini ke dalam file app/src/main/res/values/colors.xml
+  yang sudah ada (jangan timpa filenya, cukup tambahkan di dalam tag <resources>).
+-->
+<resources>
+    <!-- Diambil dari tampilan web Laravel SDN Pojok 2 -->
+    <color name="sdn_navy">#1A3E8C</color>        <!-- Header, judul utama, sidebar admin -->
+    <color name="sdn_blue">#2563EB</color>         <!-- Tombol sekunder, link, outline -->
+    <color name="sdn_red">#DC2626</color>          <!-- Tombol utama/CTA, aksen aktif -->
+    <color name="sdn_bg_light">#EEF4FF</color>     <!-- Latar section info / card -->
+    <color name="sdn_gray_text">#64748B</color>    <!-- Teks sekunder -->
+    <color name="sdn_white">#FFFFFF</color>
+</resources>
