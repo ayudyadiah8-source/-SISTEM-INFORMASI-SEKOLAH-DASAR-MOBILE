@@ -10,26 +10,30 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import hapsari.ayudyadiah.sdnpojok2app.databinding.FragmentStatusBinding
+import org.json.JSONException
+import org.json.JSONObject
 
 /**
- * Menampilkan riwayat status daftar ulang.
- * Saat ini memakai data dummy; nanti diganti dengan hasil panggilan API Laravel (Volley)
- * dan di-cache ke SQLite untuk mode offline.
+ * Menampilkan riwayat status daftar ulang dari API Laravel.
  */
 class FragmentStatus : Fragment() {
 
     private var _b: FragmentStatusBinding? = null
     private val b get() = _b!!
-
-    // Data dummy sementara: "Nama Siswa - Status"
-    private val daftarStatus = mutableListOf(
-        "Budi Santoso - Menunggu Verifikasi",
-        "Siti Aminah - Disetujui",
-        "Rizky Pratama - Perlu Perbaikan Berkas"
-    )
+    private val daftarStatus = mutableListOf<String>()
 
     private lateinit var adapter: ArrayAdapter<String>
+    private var requestQueue: RequestQueue? = null
+
+    companion object {
+        // Disamakan dengan FragmentDaftarUlang.kt: IP:PORT artisan serve
+        private const val API_URL = "http://192.168.22.105:8000/api/pendaftaran"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -46,6 +50,57 @@ class FragmentStatus : Fragment() {
 
         // Daftarkan ListView agar bisa menampilkan ContextMenu saat ditekan lama
         registerForContextMenu(b.listStatus)
+
+        requestQueue = Volley.newRequestQueue(requireContext())
+        loadPendaftaran()
+    }
+
+    private fun loadPendaftaran() {
+        val request = StringRequest(
+            Request.Method.GET,
+            API_URL,
+            { response ->
+                try {
+                    val jsonResponse = JSONObject(response)
+                    if (!jsonResponse.optBoolean("success")) {
+                        showToast(jsonResponse.optString("message", "Gagal memuat data pendaftaran."))
+                        return@StringRequest
+                    }
+
+                    val pendaftaran = jsonResponse.getJSONArray("data")
+                    daftarStatus.clear()
+
+                    for (index in 0 until pendaftaran.length()) {
+                        val dataItem = pendaftaran.getJSONObject(index)
+                        val namaSiswa = dataItem.optString("nama_siswa", "Nama tidak tersedia")
+                        val statusDaftarUlang = dataItem.optJSONObject("daftar_ulang")
+                            ?.optString("status")
+                            ?.takeIf { it.isNotBlank() }
+                            ?: "Belum ada status"
+
+                        daftarStatus.add("$namaSiswa\n$statusDaftarUlang")
+                    }
+
+                    adapter.notifyDataSetChanged()
+                    showToast("Data berhasil dimuat!")
+                } catch (exception: JSONException) {
+                    showToast("Gagal parsing data: ${exception.message ?: "format JSON tidak valid"}")
+                }
+            },
+            { error ->
+                showToast("Koneksi gagal: ${error.localizedMessage ?: "tidak dapat menghubungi server"}")
+            }
+        ).apply {
+            tag = this@FragmentStatus
+        }
+
+        requestQueue?.add(request)
+    }
+
+    private fun showToast(message: String) {
+        context?.let { fragmentContext ->
+            Toast.makeText(fragmentContext, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
@@ -76,6 +131,8 @@ class FragmentStatus : Fragment() {
     }
 
     override fun onDestroyView() {
+        requestQueue?.cancelAll(this)
+        requestQueue = null
         super.onDestroyView()
         _b = null
     }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Letakkan di: app/src/main/res/layout/fragment_daftar_ulang.xml -->
+<!-- Letakkan di: app/src/main/res/layout/fragment_daftar_ulang.xml
+     Field disesuaikan dengan modal "Formulir Pendaftaran" di web Laravel.
+     Nama ID dibuat sejajar dengan field web agar mudah dipetakan ke kolom DB. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,113 +16,281 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="FORMULIR DAFTAR ULANG"
+            android:text="FORMULIR PENDAFTARAN"
             android:textColor="@color/sdn_navy"
             android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="Silakan lengkapi data diri dan unggah berkas dengan benar."
+            android:textColor="@color/sdn_gray_text"
+            android:textSize="12sp" />
+
+        <!-- Nomor Pendaftaran -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nomor Pendaftaran"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edNoPendaftaran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contoh: PPDB-2026-001"
+            android:importantForAutofill="no"
+            android:inputType="textCapCharacters" />
+
+        <!-- NISN -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="NISN"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edNisn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor Induk Siswa Nasional"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="10" />
+
+        <!-- Nama Lengkap Siswa -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Nama Lengkap Siswa"
+            android:textColor="@color/sdn_navy"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edNamaSiswa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Lengkap Siswa"
+            android:hint="Sesuai Akta Kelahiran"
             android:importantForAutofill="no"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName|textCapWords" />
 
-        <!-- DatePickerDialog dipicu dari EditText ini (read-only, diisi lewat dialog) -->
+        <!-- Tanggal Lahir: DatePickerDialog dipicu dari EditText ini (read-only) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Tanggal Lahir"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/edTanggalLahir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:clickable="true"
             android:focusable="false"
-            android:hint="Tanggal Lahir (ketuk untuk pilih)"
+            android:hint="Ketuk untuk memilih tanggal"
             android:importantForAutofill="no"
             android:inputType="none" />
 
+        <!-- Jenjang / Kelas (Spinner) -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Jenis Kelamin"
-            android:textColor="#546E7A" />
-
-        <RadioGroup
-            android:id="@+id/rgJenisKelamin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rbLaki"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Laki-laki" />
-
-            <RadioButton
-                android:id="@+id/rbPerempuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="Perempuan" />
-        </RadioGroup>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Naik ke Kelas"
-            android:textColor="#546E7A" />
+            android:layout_marginTop="12dp"
+            android:text="Jenjang / Kelas"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinnerKelas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- AutoCompleteTextView: isi otomatis nama sekolah asal (untuk siswa pindahan) -->
+        <!-- Asal Sekolah (TK/RA) - AutoCompleteTextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Asal Sekolah (TK/RA)"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
         <AutoCompleteTextView
-            android:id="@+id/autoSekolahAsal"
+            android:id="@+id/autoAsalSekolah"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Sekolah Asal (jika pindahan)"
+            android:hint="Nama TK asal"
             android:importantForAutofill="no"
-            android:inputType="text" />
+            android:inputType="textCapWords" />
+
+        <!-- Nama Orang Tua / Wali -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Nama Orang Tua / Wali"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edNamaWali"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Nama Wali Murid"
+            android:hint="Nama Ayah/Ibu/Wali"
             android:importantForAutofill="no"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName|textCapWords" />
+
+        <!-- Nomor WhatsApp Aktif -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Nomor WhatsApp Aktif"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edAlamat"
+            android:id="@+id/edNoWa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Alamat Lengkap"
+            android:hint="08xxxxxxxxxx"
             android:importantForAutofill="no"
-            android:inputType="textMultiLine" />
+            android:inputType="phone" />
 
+        <!-- Garis pemisah -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#E0E0E0" />
+
+        <!-- Unggah Berkas / Dokumen -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Berkas Pendukung (Akta / KK)"
-            android:textColor="#546E7A" />
+            android:text="Unggah Berkas / Dokumen"
+            android:textColor="@color/sdn_navy"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvNamaBerkas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="Format file: JPG, PNG, atau PDF (Maksimal 2MB per file)."
+            android:textColor="@color/sdn_gray_text"
+            android:textSize="12sp" />
+
+        <!-- ===== Berkas 1 (SESUAIKAN nama dokumen dengan web) ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Akta Kelahiran"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvBerkas1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Belum ada berkas dipilih"
             android:textColor="#90A4AE"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnKamera1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ambil Foto" />
+
+            <Button
+                android:id="@+id/btnGaleri1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Pilih File" />
+        </LinearLayout>
+
+        <!-- ===== Berkas 2 (SESUAIKAN nama dokumen dengan web) ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Kartu Keluarga"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvBerkas2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Belum ada berkas dipilih"
+            android:textColor="#90A4AE"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnKamera2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ambil Foto" />
+
+            <Button
+                android:id="@+id/btnGaleri2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="Pilih File" />
+        </LinearLayout>
+
+        <!-- Garis pemisah -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#E0E0E0" />
+
+        <!-- Jadwal Verifikasi Berkas: DatePickerDialog + TimePickerDialog -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Jadwal Verifikasi Berkas"
+            android:textColor="@color/sdn_navy"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Pilih tanggal dan jam kedatangan ke sekolah untuk membawa berkas asli."
+            android:textColor="@color/sdn_gray_text"
             android:textSize="12sp" />
 
         <LinearLayout
@@ -129,21 +299,38 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnKamera"
+            <EditText
+                android:id="@+id/edTanggalVerifikasi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ambil Foto" />
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Tanggal"
+                android:importantForAutofill="no"
+                android:inputType="none" />
 
-            <Button
-                android:id="@+id/btnGaleri"
+            <EditText
+                android:id="@+id/edJamVerifikasi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Pilih dari Galeri" />
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="Jam"
+                android:importantForAutofill="no"
+                android:inputType="none" />
         </LinearLayout>
+
+        <!-- Indikator upload ke Supabase -->
+        <ProgressBar
+            android:id="@+id/progressUpload"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
 
         <CheckBox
             android:id="@+id/cbSetuju"
@@ -158,7 +345,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/sdn_red"
-            android:text="Kirim Formulir Daftar Ulang"
+            android:text="Kirim Formulir Pendaftaran"
             android:textColor="@color/sdn_white" />
 
     </LinearLayout>

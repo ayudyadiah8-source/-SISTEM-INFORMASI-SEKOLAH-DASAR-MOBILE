@@ -47,10 +47,22 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("io.github.jan-tennert.supabase:storage-kt:2.0.0")
+    implementation("io.ktor:ktor-client-cio:2.3.7")
 
-    // Firebase (BoM mengatur versi otomatis)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
+    implementation("com.android.volley:volley:1.2.1")
+
+    // Firebase (Menggunakan String langsung agar tidak error katalog versi)
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
+
+    // --> INI TAMBAHAN PENTING UNTUK FIRESTORE <--
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
+    // --> INI TAMBAHAN UNTUK FIREBASE IN-APP MESSAGING <--
+    implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
