@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.MediaController
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import hapsari.ayudyadiah.sdnpojok2app.LoginActivity
+import hapsari.ayudyadiah.sdnpojok2app.R
 import hapsari.ayudyadiah.sdnpojok2app.databinding.FragmentBerandaBinding
 
 class FragmentBeranda : Fragment() {
@@ -26,44 +27,64 @@ class FragmentBeranda : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ganti URL ini dengan video profil sekolah yang sebenarnya
-        val urlVideo = "https://www.w3schools.com/html/mov_bbb.mp4"
-
-        b.btnPutarVideo.setOnClickListener {
-            try {
-                val controller = MediaController(requireContext())
-                b.videoSambutan.setMediaController(controller)
-                controller.setAnchorView(b.videoSambutan)
-                b.videoSambutan.setVideoURI(Uri.parse(urlVideo))
-                b.videoSambutan.start()
-            } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Gagal memuat video: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+        // 1. Pintu Rahasia ke Login Admin
+        b.tvPintuAdmin.setOnClickListener {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
         }
 
-        // FITUR 22: Integrasi Google Maps via Intent
+        // 2. Setup Video Sambutan
+        setupVideoSambutan()
+
+        // 3. Tombol Map
         b.btnLihatMap.setOnClickListener {
             bukaLokasiSekolah()
         }
     }
 
+    private fun setupVideoSambutan() {
+        // Alamat resource video di res/raw/video_sekolah.mp4
+        val videoPath = "android.resource://${requireContext().packageName}/${R.raw.video_sekolah}"
+        val uri = Uri.parse(videoPath)
+        b.videoSambutan.setVideoURI(uri)
+
+        // Menambahkan kontrol standar (Play, Pause, Progress) saat video diklik
+        val mediaController = MediaController(requireContext())
+        mediaController.setAnchorView(b.videoSambutan)
+        b.videoSambutan.setMediaController(mediaController)
+
+        // Aksi Tombol Putar Video
+        b.btnPutarVideo.setOnClickListener {
+            if (b.videoSambutan.isPlaying) {
+                b.videoSambutan.pause()
+                b.btnPutarVideo.text = "Putar Video Sambutan"
+            } else {
+                b.videoSambutan.start()
+                b.btnPutarVideo.text = "Pause Video Sambutan"
+            }
+        }
+
+        // Reset teks tombol jika video selesai diputar
+        b.videoSambutan.setOnCompletionListener {
+            b.btnPutarVideo.text = "Putar Video Sambutan"
+        }
+        
+        // Memastikan video siap (opsional: bisa langsung play di sini jika mau)
+        b.videoSambutan.requestFocus()
+    }
+
     private fun bukaLokasiSekolah() {
-        // Koordinat SDN Pojok 2 Kota Kediri (estimasi)
         val latitude = -7.801640
         val longitude = 111.986870
         val label = "SDN Pojok 2 Kota Kediri"
-        
-        // URI geo untuk membuka aplikasi peta
-        val uri = "geo:$latitude,$longitude?q=$latitude,$longitude($label)"
-        val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-        
-        // Pastikan aplikasi peta tersedia
+        val uri = Uri.parse("geo:$latitude,$longitude?q=$latitude,$longitude($label)")
+        val mapIntent = Intent(Intent.ACTION_VIEW, uri)
+
         if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
             startActivity(mapIntent)
         } else {
-            // Jika tidak ada aplikasi peta, buka di browser
-            val browserUri = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(browserUri)))
+            val browserUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude")
+            startActivity(Intent(Intent.ACTION_VIEW, browserUri))
         }
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Letakkan di: app/src/main/res/layout/fragment_beranda.xml -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -11,8 +11,8 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Badge "Selamat Datang di" seperti di hero web -->
         <TextView
+            android:id="@+id/tvPintuAdmin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_badge_pill"
@@ -59,23 +59,38 @@
             android:textColor="@color/sdn_gray_text"
             android:textSize="13sp" />
 
-        <!-- Placeholder video sambutan kepala sekolah -->
-        <VideoView
-            android:id="@+id/videoSambutan"
+        <!-- FRAME VIDEO DITENGAH DENGAN CARDVIEW -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_height="220dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000000">
+
+                <VideoView
+                    android:id="@+id/videoSambutan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <Button
             android:id="@+id/btnPutarVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="@color/sdn_blue"
-            android:text="Putar Video Sambutan Kepala Sekolah"
+            android:text="Putar Video Sambutan"
+            android:textAllCaps="false"
             android:textColor="@color/sdn_white" />
 
-        <!-- FITUR 22: Tombol Buka Map -->
         <Button
             android:id="@+id/btnLihatMap"
             android:layout_width="match_parent"
@@ -83,9 +98,9 @@
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/sdn_navy"
             android:text="📍 Lihat Lokasi Sekolah di Map"
+            android:textAllCaps="false"
             android:textColor="@color/sdn_white" />
 
-        <!-- Statistik -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
