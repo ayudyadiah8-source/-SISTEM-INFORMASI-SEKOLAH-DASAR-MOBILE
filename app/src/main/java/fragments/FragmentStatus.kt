@@ -3,32 +3,23 @@ package hapsari.ayudyadiah.sdnpojok2app.fragments
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import hapsari.ayudyadiah.sdnpojok2app.R
 import hapsari.ayudyadiah.sdnpojok2app.databinding.FragmentStatusBinding
 import org.json.JSONException
 import org.json.JSONObject
 
 /**
  * Menampilkan riwayat status daftar ulang dari API Laravel.
- * Mengimplementasikan fitur:
- * 9. ListView
- * 10. OptionsMenu
- * 11. ContextMenu
- * 12. PopupMenu
  */
 class FragmentStatus : Fragment() {
 
@@ -40,14 +31,8 @@ class FragmentStatus : Fragment() {
     private var requestQueue: RequestQueue? = null
 
     companion object {
-        // Update IP sesuai konfigurasi jaringan user
-        private const val API_URL = "http://192.168.41.113:8000/api/pendaftaran"
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Aktifkan OptionsMenu di Fragment
-        setHasOptionsMenu(true)
+        // Disamakan dengan FragmentDaftarUlang.kt: IP:PORT artisan serve
+        private const val API_URL = "http://192.168.40.69:8000/api/pendaftaran"
     }
 
     override fun onCreateView(
@@ -60,17 +45,11 @@ class FragmentStatus : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // FITUR 9: ListView
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, daftarStatus)
         b.listStatus.adapter = adapter
 
-        // FITUR 11: Daftarkan ListView agar bisa menampilkan ContextMenu saat ditekan lama
+        // Daftarkan ListView agar bisa menampilkan ContextMenu saat ditekan lama
         registerForContextMenu(b.listStatus)
-
-        // FITUR 12: PopupMenu saat ImageButton diklik
-        b.btnMenuPopup.setOnClickListener { view ->
-            showPopupMenu(view)
-        }
 
         requestQueue = Volley.newRequestQueue(requireContext())
         loadPendaftaran()
@@ -124,28 +103,6 @@ class FragmentStatus : Fragment() {
         }
     }
 
-    // FITUR 10: OptionsMenu (Menu di pojok kanan atas Toolbar)
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.add(Menu.NONE, 100, Menu.NONE, "Refresh Data")
-        menu.add(Menu.NONE, 101, Menu.NONE, "Bantuan")
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            100 -> {
-                loadPendaftaran()
-                true
-            }
-            101 -> {
-                showToast("Hubungi admin sekolah jika data tidak muncul.")
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    // FITUR 11: ContextMenu (Muncul saat ListView ditekan lama)
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
         menu.setHeaderTitle("Pilih Aksi")
@@ -156,7 +113,7 @@ class FragmentStatus : Fragment() {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val info = item.menuInfo as? AdapterView.AdapterContextMenuInfo ?: return super.onContextItemSelected(item)
         val posisi = info.position
-        val dataTerpilih = if (posisi < daftarStatus.size) daftarStatus[posisi] else ""
+        val dataTerpilih = daftarStatus[posisi]
 
         return when (item.itemId) {
             1 -> {
@@ -164,41 +121,13 @@ class FragmentStatus : Fragment() {
                 true
             }
             2 -> {
-                if (posisi < daftarStatus.size) {
-                    daftarStatus.removeAt(posisi)
-                    adapter.notifyDataSetChanged()
-                    Toast.makeText(requireContext(), "Dihapus dari riwayat lokal", Toast.LENGTH_SHORT).show()
-                }
+                daftarStatus.removeAt(posisi)
+                adapter.notifyDataSetChanged()
+                Toast.makeText(requireContext(), "Dihapus dari riwayat lokal", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onContextItemSelected(item)
         }
-    }
-
-    // FITUR 12: PopupMenu (Muncul saat tombol titik tiga/menu diklik)
-    private fun showPopupMenu(view: View) {
-        val popup = PopupMenu(requireContext(), view)
-        popup.menu.add("Urutkan Berdasarkan Nama")
-        popup.menu.add("Urutkan Berdasarkan Status")
-        
-        popup.setOnMenuItemClickListener { item ->
-            when (item.title) {
-                "Urutkan Berdasarkan Nama" -> {
-                    daftarStatus.sort()
-                    adapter.notifyDataSetChanged()
-                    showToast("Diurutkan berdasarkan nama")
-                    true
-                }
-                "Urutkan Berdasarkan Status" -> {
-                    daftarStatus.sortBy { it.substringAfter("\n") }
-                    adapter.notifyDataSetChanged()
-                    showToast("Diurutkan berdasarkan status")
-                    true
-                }
-                else -> false
-            }
-        }
-        popup.show()
     }
 
     override fun onDestroyView() {

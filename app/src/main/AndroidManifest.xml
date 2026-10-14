@@ -31,18 +31,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA_ISI_SENDIRI_API_KEY_ANDA" />
 
+        <!-- LoginActivity sekarang HANYA dibuka jika dipanggil -->
         <activity
             android:name=".LoginActivity"
+            android:exported="false" />
+
+        <!-- MainActivity sekarang menjadi LAUNCHER (Tampil pertama kali) -->
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
 
         <service
             android:name=".MyFirebaseMessagingService"
