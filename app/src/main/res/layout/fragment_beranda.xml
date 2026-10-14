@@ -70,12 +70,22 @@
             android:id="@+id/btnPutarVideo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/sdn_blue"
             android:text="Putar Video Sambutan Kepala Sekolah"
             android:textColor="@color/sdn_white" />
 
-        <!-- Statistik, meniru kartu di dashboard admin (Total Siswa, Guru, dst) -->
+        <!-- FITUR 22: Tombol Buka Map -->
+        <Button
+            android:id="@+id/btnLihatMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/sdn_navy"
+            android:text="📍 Lihat Lokasi Sekolah di Map"
+            android:textColor="@color/sdn_white" />
+
+        <!-- Statistik -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

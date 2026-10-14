@@ -6,14 +6,32 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="STATUS DAFTAR ULANG"
-        android:textColor="@color/sdn_navy"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="STATUS DAFTAR ULANG"
+            android:textColor="@color/sdn_navy"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- FITUR 12: Tombol untuk memicu PopupMenu -->
+        <ImageButton
+            android:id="@+id/btnMenuPopup"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_more"
+            android:contentDescription="Menu Lainnya" />
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -23,6 +41,7 @@
         android:textColor="#90A4AE"
         android:textSize="12sp" />
 
+    <!-- FITUR 9: ListView -->
     <ListView
         android:id="@+id/listStatus"
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package hapsari.ayudyadiah.sdnpojok2app.fragments
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,7 +26,7 @@ class FragmentBeranda : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Ganti URL ini dengan video profil sekolah yang sebenarnya (hosting sendiri / Supabase Storage)
+        // Ganti URL ini dengan video profil sekolah yang sebenarnya
         val urlVideo = "https://www.w3schools.com/html/mov_bbb.mp4"
 
         b.btnPutarVideo.setOnClickListener {
@@ -38,6 +39,31 @@ class FragmentBeranda : Fragment() {
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Gagal memuat video: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // FITUR 22: Integrasi Google Maps via Intent
+        b.btnLihatMap.setOnClickListener {
+            bukaLokasiSekolah()
+        }
+    }
+
+    private fun bukaLokasiSekolah() {
+        // Koordinat SDN Pojok 2 Kota Kediri (estimasi)
+        val latitude = -7.801640
+        val longitude = 111.986870
+        val label = "SDN Pojok 2 Kota Kediri"
+        
+        // URI geo untuk membuka aplikasi peta
+        val uri = "geo:$latitude,$longitude?q=$latitude,$longitude($label)"
+        val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        
+        // Pastikan aplikasi peta tersedia
+        if (mapIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(mapIntent)
+        } else {
+            // Jika tidak ada aplikasi peta, buka di browser
+            val browserUri = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(browserUri)))
         }
     }
 

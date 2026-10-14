@@ -5,11 +5,7 @@ plugins {
 
 android {
     namespace = "hapsari.ayudyadiah.sdnpojok2app"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "hapsari.ayudyadiah.sdnpojok2app"
@@ -52,17 +48,16 @@ dependencies {
 
     implementation("com.android.volley:volley:1.2.1")
 
-    // Firebase (Menggunakan String langsung agar tidak error katalog versi)
+    // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
-
-    // --> INI TAMBAHAN PENTING UNTUK FIRESTORE <--
     implementation("com.google.firebase:firebase-firestore-ktx")
-
-    // --> INI TAMBAHAN UNTUK FIREBASE IN-APP MESSAGING <--
     implementation("com.google.firebase:firebase-inappmessaging-display-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // --> FITUR 22: Google Maps <--
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

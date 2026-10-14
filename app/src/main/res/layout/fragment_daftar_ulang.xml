@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Letakkan di: app/src/main/res/layout/fragment_daftar_ulang.xml
-     Field disesuaikan dengan modal "Formulir Pendaftaran" di web Laravel.
-     Nama ID dibuat sejajar dengan field web agar mudah dipetakan ke kolom DB. -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -59,7 +56,7 @@
             android:id="@+id/edNisn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nomor Induk Siswa Nasional"
+            android:hint="Masukkan NISN"
             android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="10" />
@@ -77,11 +74,40 @@
             android:id="@+id/edNamaSiswa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Sesuai Akta Kelahiran"
+            android:hint="Masukkan Nama Lengkap"
             android:importantForAutofill="no"
             android:inputType="textPersonName|textCapWords" />
 
-        <!-- Tanggal Lahir: DatePickerDialog dipicu dari EditText ini (read-only) -->
+        <!-- Jenis Kelamin -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Jenis Kelamin"
+            android:textColor="@color/sdn_navy"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rgJenisKelamin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbLaki"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Laki-laki" />
+
+            <RadioButton
+                android:id="@+id/rbPerempuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Perempuan" />
+        </RadioGroup>
+
+        <!-- Tanggal Lahir -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,11 +122,11 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="false"
-            android:hint="Ketuk untuk memilih tanggal"
+            android:hint="Pilih tanggal lahir"
             android:importantForAutofill="no"
             android:inputType="none" />
 
-        <!-- Jenjang / Kelas (Spinner) -->
+        <!-- Jenjang / Kelas -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!-- Asal Sekolah (TK/RA) - AutoCompleteTextView -->
+        <!-- Asal Sekolah -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,7 +157,7 @@
             android:importantForAutofill="no"
             android:inputType="textCapWords" />
 
-        <!-- Nama Orang Tua / Wali -->
+        <!-- Nama Wali -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,16 +170,16 @@
             android:id="@+id/edNamaWali"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Ayah/Ibu/Wali"
+            android:hint="Ayah/Ibu/Wali"
             android:importantForAutofill="no"
             android:inputType="textPersonName|textCapWords" />
 
-        <!-- Nomor WhatsApp Aktif -->
+        <!-- Nomor WhatsApp -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Nomor WhatsApp Aktif"
+            android:text="Nomor WhatsApp"
             android:textColor="@color/sdn_navy"
             android:textStyle="bold" />
 
@@ -161,41 +187,32 @@
             android:id="@+id/edNoWa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="08xxxxxxxxxx"
+            android:hint="08xxxxxxxx"
             android:importantForAutofill="no"
             android:inputType="phone" />
 
-        <!-- Garis pemisah -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:background="#E0E0E0" />
 
-        <!-- Unggah Berkas / Dokumen -->
+        <!-- Unggah Berkas -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Unggah Berkas / Dokumen"
+            android:text="Unggah Berkas"
             android:textColor="@color/sdn_navy"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Format file: JPG, PNG, atau PDF (Maksimal 2MB per file)."
-            android:textColor="@color/sdn_gray_text"
-            android:textSize="12sp" />
-
-        <!-- ===== Berkas 1 (SESUAIKAN nama dokumen dengan web) ===== -->
+        <!-- BERKAS 1 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Akta Kelahiran"
+            android:text="1. Akta Kelahiran"
             android:textColor="@color/sdn_navy"
             android:textStyle="bold" />
 
@@ -218,7 +235,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ambil Foto" />
+                android:text="Kamera" />
 
             <Button
                 android:id="@+id/btnGaleri1"
@@ -226,15 +243,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Pilih File" />
+                android:text="Galeri" />
         </LinearLayout>
 
-        <!-- ===== Berkas 2 (SESUAIKAN nama dokumen dengan web) ===== -->
+        <!-- BERKAS 2 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Kartu Keluarga"
+            android:text="2. Kartu Keluarga"
             android:textColor="@color/sdn_navy"
             android:textStyle="bold" />
 
@@ -257,7 +274,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ambil Foto" />
+                android:text="Kamera" />
 
             <Button
                 android:id="@+id/btnGaleri2"
@@ -265,33 +282,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Pilih File" />
+                android:text="Galeri" />
         </LinearLayout>
 
-        <!-- Garis pemisah -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:background="#E0E0E0" />
 
-        <!-- Jadwal Verifikasi Berkas: DatePickerDialog + TimePickerDialog -->
+        <!-- Jadwal Verifikasi -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Jadwal Verifikasi Berkas"
+            android:text="Jadwal Verifikasi"
             android:textColor="@color/sdn_navy"
             android:textSize="16sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Pilih tanggal dan jam kedatangan ke sekolah untuk membawa berkas asli."
-            android:textColor="@color/sdn_gray_text"
-            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -323,7 +331,6 @@
                 android:inputType="none" />
         </LinearLayout>
 
-        <!-- Indikator upload ke Supabase -->
         <ProgressBar
             android:id="@+id/progressUpload"
             style="?android:attr/progressBarStyleHorizontal"
@@ -337,7 +344,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Saya menyatakan data yang diisi benar dan dapat dipertanggungjawabkan." />
+            android:text="Data yang saya isi benar." />
 
         <Button
             android:id="@+id/btnKirim"
@@ -345,7 +352,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/sdn_red"
-            android:text="Kirim Formulir Pendaftaran"
+            android:text="Kirim Pendaftaran"
             android:textColor="@color/sdn_white" />
 
     </LinearLayout>
